@@ -1,0 +1,13 @@
+{
+  "name": "@apacholik/lp-test",
+  "version": "1.0.0",
+  "description": "This repository is for learn, tested and geting practice about serverless in aws",
+  "private": true,
+  "scripts": {},
+  "keywords": [
+    "aws",
+    "test"
+  ],
+  "author": "Andrzej Pacholik",
+  "license": "ISC"
+}
