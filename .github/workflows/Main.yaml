@@ -1,0 +1,46 @@
+name: Node.js CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Run install
+      run: npm ci
+      working-directory: ./site
+    - name: Runn build
+      run: npm run build
+      working-directory: ./site
+    - name: Add Artifact (build)
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: ./site/out
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get artifact from build
+      uses: actions/download-artifact@v2
+      with:
+        name: build
+    - name: Configure AWS credentials from Test account
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+    - run: ls
+    - name: Copy build to S3
+      run: aws s3 sync . s3://lp-test-site-200602 --delete --acl public-read
