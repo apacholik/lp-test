@@ -14,9 +14,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0px;
     margin: 0px;
 
-    display: flex;
-    flex-flow: column;
-
     height: 100%;
     
     * {
@@ -25,29 +22,12 @@ const GlobalStyle = createGlobalStyle`
 
     #__next {
       display: flex;
-      flex: 1 1 100%;
-      margin-top: 57.6px;
+      height: 100%;
+      flex: 0 1 100%;
 
-      > main {
-        flex: 1 1 100%;
-      }
+      display: flex;
+      flex-flow: column;
     }
-  }
-
-  #__nav {
-    z-index: 8000;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-  }
-
-  #__footer {
-    background-color: ${({theme}) => theme.footer.backgroundColor};
-    padding: 8px;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
   }
 `
 
