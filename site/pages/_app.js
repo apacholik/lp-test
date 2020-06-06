@@ -1,16 +1,29 @@
 import App from 'next/app';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import theme from '../common/theme';
 import GlobalStyle from '../common/GlobalStyle';
+
+import { BodyHeader } from '../components/BodyHeader';
+import { NavigationTop } from '../components/NavigationTop';
+import { Footer } from '../components/Footer';
+
+const Main = styled.main`
+  margin-top: 57.6px;
+  flex: 1 1 100%;
+`;
 
 export default class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
     return (
       <ThemeProvider theme={theme}>
-        <main>
+        <BodyHeader>
+          <NavigationTop />
+        </BodyHeader>
+        <Main>
           <Component {...pageProps} />
-        </main>
+        </Main>
+        <Footer />
         <GlobalStyle />
       </ThemeProvider>
     )
