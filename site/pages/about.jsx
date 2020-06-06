@@ -7,7 +7,7 @@ export default function Home() {
         <title>About Me</title>
       </Head>
       <article>
-        <Headers>Andrzej Pacholik</Headers>
+        <headers>Andrzej Pacholik</headers>
         <p>First, tested paragraph</p>
       </article>
     </>
