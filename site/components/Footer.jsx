@@ -1,8 +1,7 @@
 import { Children } from 'react';
 import styled from 'styled-components';
 import { lighten, em } from 'polished';
-import ClientOnlyPortal from '../ClientOnlyPortal';
-import { StyledLink } from '../StyledLink';
+import { StyledLink } from './Link';
 
 const FooterLink = styled(StyledLink)`
   color: ${({theme}) => lighten(0.2, theme.colors.normal)};
@@ -40,6 +39,15 @@ const FooterColumn = styled(({title, children, ...restProps}) =>
   }
 `;
 
+const FooterWraper = styled.footer`
+  background-color: ${({theme}) => theme.footer.backgroundColor};
+  padding: 8px;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
 const Copyright = styled.div`
   font-size: 0.7em;
   text-align: center;
@@ -50,7 +58,7 @@ const Copyright = styled.div`
 `;
 
 export const Footer = () => (
-  <ClientOnlyPortal selector="#__footer">
+  <FooterWraper>
     <FooterColumn title="Site map">
       <FooterLink href="/">Home</FooterLink>
       <FooterLink href="/about">About</FooterLink>
@@ -58,5 +66,5 @@ export const Footer = () => (
     <Copyright>
       Copyright 2020 Andrzej Pacholik
     </Copyright>
-  </ClientOnlyPortal>
+  </FooterWraper>
 );
