@@ -10,6 +10,7 @@ import { Footer } from '../components/Footer';
 const Main = styled.main`
   margin-top: 57.6px;
   flex: 1 1 100%;
+  padding: 8px;
 `;
 
 export default class MyApp extends App {
