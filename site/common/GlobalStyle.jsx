@@ -28,6 +28,11 @@ const GlobalStyle = createGlobalStyle`
       display: flex;
       flex-flow: column;
     }
+
+    .max-width {
+      width: 1160px;
+      margin: 0px auto;
+    }
   }
 `
 

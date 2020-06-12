@@ -7,4 +7,6 @@ export const BodyHeader = styled.header`
   top: 0px;
 
   width: 100%;
+
+  background: ${({theme}) => theme.bodyHead.backgroundColor}
 `;
