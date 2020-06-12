@@ -30,7 +30,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     .max-width {
-      width: 1160px;
+      max-width: 1160px;
+      width: 100%;
       margin: 0px auto;
     }
   }

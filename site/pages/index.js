@@ -91,7 +91,7 @@ export default function Home() {
       <Head>
         <title>This is landingpage from S3</title>
       </Head>
-      <IndexWrapper className="max-width">
+      <IndexWrapper>
         <IndexGraphics>
           <svg viewBox="0 0 900 350">
             <defs>

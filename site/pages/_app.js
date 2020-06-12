@@ -21,7 +21,7 @@ export default class MyApp extends App {
         <BodyHeader>
           <NavigationTop />
         </BodyHeader>
-        <Main>
+        <Main className="max-width">
           <Component {...pageProps} />
         </Main>
         <Footer />
