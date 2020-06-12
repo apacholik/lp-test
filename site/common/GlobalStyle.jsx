@@ -28,6 +28,12 @@ const GlobalStyle = createGlobalStyle`
       display: flex;
       flex-flow: column;
     }
+
+    .max-width {
+      max-width: 1160px;
+      width: 100%;
+      margin: 0px auto;
+    }
   }
 `
 

@@ -8,7 +8,7 @@ import { NavigationTop } from '../components/NavigationTop';
 import { Footer } from '../components/Footer';
 
 const Main = styled.main`
-  margin-top: 57.6px;
+  margin-top: 72px;
   flex: 1 1 100%;
   padding: 8px;
 `;
@@ -21,7 +21,7 @@ export default class MyApp extends App {
         <BodyHeader>
           <NavigationTop />
         </BodyHeader>
-        <Main>
+        <Main className="max-width">
           <Component {...pageProps} />
         </Main>
         <Footer />
