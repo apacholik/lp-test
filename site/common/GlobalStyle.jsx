@@ -22,7 +22,7 @@ const GlobalStyle = createGlobalStyle`
 
     #__next {
       display: flex;
-      height: 100%;
+      min-height: 100%;
       flex: 0 1 100%;
 
       display: flex;

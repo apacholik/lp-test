@@ -1,7 +1,11 @@
-import { Children } from 'react';
+import { Children, useState } from 'react';
 import styled from 'styled-components';
 import { lighten, darken, em } from 'polished';
 import { StyledLink } from './Link';
+import { Icon } from './Icon';
+import { CustomButton } from './CustomButton';
+
+const breakPoint = 400;
 
 const FooterLink = styled(StyledLink)`
   color: ${({theme}) => theme.footer.link.color};
@@ -15,33 +19,75 @@ const FooterColumnTitle = styled.header`
   font-size: 1em;
   line-height: 1.5;
   font-weight: 600;
+
+  display: flex;
+  align-items: center;
+
+  @media (max-width: ${breakPoint}px) {
+    cursor: pointer;
+
+    .icon-arrow {
+      
+    }
+  }
+
+  .icon-arrow {
+    display: none;
+
+    @media (max-width: ${breakPoint}px) {
+      display: initial;
+    }
+  }
+
+  > span {
+    flex-grow: 1;
+  }
 `;
 
-const FooterColumn = styled(({title, children, ...restProps}) => 
-  <section {...restProps}>
-    {!!title && <FooterColumnTitle>{title}</FooterColumnTitle>}
+const FooterColumnChild = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  padding: 0px 4px;
+  line-height: 1.4;
+
+  list-style: none;
+
+  @media (max-width: ${breakPoint}px) {
+    display: ${({expanded}) => expanded ? 'flex' : 'none'};
+  }
+`;
+
+
+
+const FooterColumn = styled(({title, children, ...restProps}) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const iconRotate = isExpanded ? {} : { transform: 'rotate(180deg)', }
+
+  return <section {...restProps}>
+    {
+      !!title
+      && <FooterColumnTitle onClick={() => setIsExpanded(!isExpanded) }>
+          <span>{title}</span>
+          <Icon className="icon-arrow" icon="arrow-up" style={iconRotate} />
+        </FooterColumnTitle>
+    }
     {
       Children.count(children) < 2
       ? children
-      : (<div>
+      : (<FooterColumnChild expanded={isExpanded}>
         {children}
-      </div>)
+      </FooterColumnChild>)
     }
   </section>
-)`
+})`
   padding: 8px;
   font-size: 0.8em;
   max-width: 192px;
   width: 100%;
 
-  > div {
-    display: flex;
-    flex-direction: column;
-    margin: 0px;
-    padding: 0px 4px;
-    line-height: 1.4;
-
-    list-style: none;
+  @media (max-width: ${breakPoint}px) {
+    max-width: none;
   }
 `;
 
