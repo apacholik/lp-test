@@ -8,7 +8,7 @@ import { NavigationTop } from '../components/NavigationTop';
 import { Footer } from '../components/Footer';
 
 const Main = styled.main`
-  margin-top: 72px;
+  margin-top: 72px !important;
   flex: 1 1 100%;
   padding: 8px;
 `;

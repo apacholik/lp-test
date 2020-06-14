@@ -11,9 +11,15 @@ const gradients = {
   primary: `linear-gradient(135deg, ${colors.indigo} 0%, ${colors.sanMarino} 19%, ${colors.cinnabar} 100%)`,
 }
 
+const size = {
+  s: 315,
+  m: 624,
+}
+
 const theme = {
   colors,
   gradients,
+  size,
   bodyHead: {
     backgroundColor: '#2c2361',
     textColor: '#ff8175',
