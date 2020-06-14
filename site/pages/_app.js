@@ -11,6 +11,8 @@ const Main = styled.main`
   margin-top: 72px !important;
   flex: 1 1 100%;
   padding: 8px;
+
+  display: flex;
 `;
 
 export default class MyApp extends App {
