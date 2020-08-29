@@ -1,8 +1,12 @@
 import Head from 'next/head';
-import * as S from './index.style';
 
-import { CustomFiled } from '../../components/CustomField';
-import { CustomButton } from '../../components/CustomButton';
+import { CustomFiled } from 'components/CustomField';
+import { CustomButton } from 'components/CustomButton';
+import { IndexForm } from 'components/IndexForm';
+import { IndexFormHero } from 'components/IndexFormHero';
+import { IndexFormWrapper } from 'components/IndexFormWrapper';
+import { IndexGraphics } from 'components/IndexGraphics';
+import { IndexWrapper } from 'components/IndexWrapper';
 
 const onSubmit = (e) => {
   if (e.cancelable) {
@@ -18,8 +22,8 @@ export default function Home() {
       <Head>
         <title>This is landing page from S3</title>
       </Head>
-      <S.IndexWrapper>
-        <S.IndexGraphics>
+      <IndexWrapper>
+        <IndexGraphics>
           <svg viewBox="0 0 900 350">
             <defs>
               <pattern id="svgPatternBaseOne" x="0" y="0" width=".1030" height="1">
@@ -46,10 +50,10 @@ export default function Home() {
             <image x="150px" y="0px" width="200px" href="/icon/cabin.svg" />
             <image x="300px" y="50px" width="300px" href="/icon/lumberjack.svg" />
           </svg>
-        </S.IndexGraphics>
-        <S.IndexFormWrapper>
+        </IndexGraphics>
+        <IndexFormWrapper>
           <header>
-            <S.IndexFormHero xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 210">
+            <IndexFormHero xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 210">
               <defs>
                 <linearGradient id="svgGradPrim" x1="0" x2="0" y1="0" y2="1">
                   <stop offset="0%" stopColor="rgba(231,56,39,1)"/>
@@ -62,15 +66,15 @@ export default function Home() {
                 <tspan x="50%" dy="1.0em">Answer</tspan>
                 <tspan x="50%" dy="1.0em">the question</tspan>
               </text>
-            </S.IndexFormHero>
+            </IndexFormHero>
           </header>
-          <S.IndexForm onSubmit={onSubmit}>
+          <IndexForm onSubmit={onSubmit}>
             <CustomFiled name="customerName" placeholder="Your name"/>
             <CustomFiled name="customerName" placeholder="Your age"/>
             <CustomButton type="submit">save me !</CustomButton>
-          </S.IndexForm>
-        </S.IndexFormWrapper>
-      </S.IndexWrapper>
+          </IndexForm>
+        </IndexFormWrapper>
+      </IndexWrapper>
     </>
   )
 }
