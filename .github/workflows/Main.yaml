@@ -48,4 +48,4 @@ jobs:
         aws-region: eu-west-1
     - run: ls
     - name: Copy build to S3
-      run: aws s3 sync . s3://lp-test-site-200602/site --delete --acl public-read
+      run: aws s3 sync . s3://lp-test-site-200602 --delete --acl public-read
