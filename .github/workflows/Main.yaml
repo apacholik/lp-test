@@ -30,7 +30,12 @@ jobs:
       run: yes | sam deploy --no-fail-on-empty-changeset
       working-directory: ./server
     - name: Get API endpoint and set to env
-      run: aws cloudformation describe-stacks --stack-name lp-test-backend-lambda --query "Stacks[0].Outputs[?OutputKey==\"APIEndpoint\"].OutputValue" --output text | xargs -I{} echo "API_ENPOINT={}" >> $GITHUB_ENV
+      run: aws cloudformation describe-stacks --stack-name lp-test-backend-lambda --query "Stacks[0].Outputs[?OutputKey=='APIEndpoint'].OutputValue" --output text > apiurl.txt
+    - name: Add Artifact (apiurl file)
+      uses: actions/upload-artifact@v2
+      with:
+        name: apiurl.txt
+        path: ./apiurl.txt
   buildWebsite:
     needs: buildServer
     runs-on: ubuntu-latest
@@ -53,8 +58,14 @@ jobs:
     - name: Run install
       run: npm ci
       working-directory: ./site
-    - name: Test ENV
-      run: echo "$API_ENPOINT"
+    - name: Get artifact from build
+      uses: actions/download-artifact@v2
+      with:
+        name: apiurl.txt
+    - name: SET API_URL to ENV
+      run: cat apiurl.txt | xargs -I{} echo "API_URL={}" >> $GITHUB_ENV
+    - name: Show API_URL from ENV
+      run: echo "${API_URL}"
     - name: Runn build
       run: npm run build
       working-directory: ./site
