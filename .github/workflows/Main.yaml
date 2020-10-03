@@ -30,9 +30,7 @@ jobs:
       run: yes | sam deploy --no-fail-on-empty-changeset
       working-directory: ./server
     - name: Get API endpoint and set to env
-      run: aws cloudformation describe-stacks --stack-name lp-test-backend-lambda \
-          --query "Stacks[0].Outputs[?OutputKey==\"APIEndpoint\"].OutputValue" \
-          --output text | xargs -I{} echo "API_ENPOINT={}" >> $GITHUB_ENV
+      run: aws cloudformation describe-stacks --stack-name lp-test-backend-lambda --query "Stacks[0].Outputs[?OutputKey==\"APIEndpoint\"].OutputValue" --output text | xargs -I{} echo "API_ENPOINT={}" >> $GITHUB_ENV
   buildWebsite:
     needs: buildServer
     runs-on: ubuntu-latest
