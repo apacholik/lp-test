@@ -25,8 +25,10 @@ jobs:
         aws-region: eu-west-1
     - name: Build AWS SAM
       run: sam build
+      working-directory: ./server
     - name: deploy AWS SAM
       run: yes | sam deploy
+      working-directory: ./server
     - name: Get API endpoint and set to env
       run: aws cloudformation describe-stacks --stack-name lp-test-backend-lambda \
           --query 'Stacks[0].Outputs[?OutputKey==`APIEndpoint`].OutputValue' \
