@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "lp-test-backend-lambda"
+s3_bucket = "lp-test-samclisourcebucket"
+s3_prefix = "lp-test-backend-lambda"
+region = "eu-west-1"
+confirm_changeset = false
+capabilities = "CAPABILITY_IAM"
+

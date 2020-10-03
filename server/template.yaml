@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: REST API for website lp-test
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  ResponderRoute:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: responder/
+      Handler: app.lambdaHandler
+      Runtime: nodejs12.x
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ResponderDB
+      Environment:
+        Variables:
+          DATABASE_TABLE: !Ref ResponderDB
+      Events:
+        Form:
+          Type: Api
+          Properties:
+            Path: /responder
+            Method: any
+  # DynamoDB table to store item: {id: &lt;ID&gt;, name: &lt;NAME&gt;, age:&lt;AGE&gt;}
+  ResponderDB:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  APIEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage for Form function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
