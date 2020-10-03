@@ -1,9 +1,38 @@
 name: Node.js CI
 on:
   push:
-    branches: [ master ]
+    branches: [ development ]
 jobs:
-  build:
+  buildServer:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Run npm install
+      run: npm ci
+      working-directory: ./server/responder
+    - name: Configure AWS credentials from Test account
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
+    - name: Build AWS SAM
+      run: sam build
+    - name: deploy AWS SAM
+      run: yes | sam deploy
+    - name: Get API endpoint and set to env
+      run: aws cloudformation describe-stacks --stack-name lp-test-backend-lambda \
+          --query 'Stacks[0].Outputs[?OutputKey==`APIEndpoint`].OutputValue' \
+          --output text | xargs -I{} echo "API_ENPOINT={}" >> $GITHUB_ENV
+  buildWebsite:
+    needs: buildServer
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,6 +53,8 @@ jobs:
     - name: Run install
       run: npm ci
       working-directory: ./site
+    - name: Test ENV
+      run: echo "$API_ENPOINT"
     - name: Runn build
       run: npm run build
       working-directory: ./site
@@ -32,8 +63,8 @@ jobs:
       with:
         name: build
         path: ./site/out
-  deploy:
-    needs: build
+  deployWebsite:
+    needs: buildWebsite
     runs-on: ubuntu-latest
     steps:
     - name: Get artifact from build
