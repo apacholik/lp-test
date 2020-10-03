@@ -31,7 +31,7 @@ jobs:
       working-directory: ./server
     - name: Get API endpoint and set to env
       run: aws cloudformation describe-stacks --stack-name lp-test-backend-lambda \
-          --query 'Stacks[0].Outputs[?OutputKey==`APIEndpoint`].OutputValue' \
+          --query "Stacks[0].Outputs[?OutputKey==\"APIEndpoint\"].OutputValue" \
           --output text | xargs -I{} echo "API_ENPOINT={}" >> $GITHUB_ENV
   buildWebsite:
     needs: buildServer
